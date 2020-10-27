@@ -1,13 +1,11 @@
 extern crate diesel;
+extern crate lovable_frog;
 
-use lovable_frog;
-use lovable_frog::diesel::prelude::*;
+use self::diesel::prelude::*;
 
 fn main() {
     use lovable_frog::schema::heroes;
-    use lovable_frog::models::Hero;
-
     let connection = lovable_frog::establish_connection();
-    let results = heroes::table.select(heroes::id).limit(5).load::<Hero>(&connection).expect("Error");
+    let results = heroes::table.find("123").execute(&connection);
     println!("Hello, world!");
 }
